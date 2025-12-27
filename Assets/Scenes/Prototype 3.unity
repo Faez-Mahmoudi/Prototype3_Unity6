@@ -701,14 +701,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f01731a53155f841bff9adb0f87708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 600
+  gravityModifier: 2
+  gameOver: 0
   jumpSound: {fileID: 8300000, guid: 113ee460fadc340e4957a7404a9fbb27, type: 3}
   crashSound: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
   explosionParticle: {fileID: 469783569}
   dirtParticle: {fileID: 1675436026}
-  jumpForce: 600
-  gravityModifier: 1.5
-  isOnGround: 1
-  gameOver: 0
 --- !u!4 &621579620 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400046, guid: 814f4326a50812947b2469896d89a215, type: 3}
@@ -975,7 +974,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7547aa068d69b544814de50dd9abe86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 167892294975613840, guid: 2a33fd4432ffd204e8b4c8aaa37adc9b, type: 3}
+  obstaclePrefabs:
+  - {fileID: 840570365923812027, guid: d315a2abe6f22734a9277a9a18ebc5b3, type: 3}
+  - {fileID: 9014194006505712584, guid: 44d0544ca2142864b8bb8b371fd3a882, type: 3}
+  - {fileID: 951830633463083413, guid: 87facb3ae8bed7f47b2222a03346f006, type: 3}
+  - {fileID: 2258573923451067293, guid: 48f683576d685ab43a7cb16404337caa, type: 3}
+  - {fileID: 6718762382092469175, guid: 9fe0952543b816f49936dc4cea3900e6, type: 3}
+  - {fileID: 167892294975613840, guid: 2a33fd4432ffd204e8b4c8aaa37adc9b, type: 3}
+  - {fileID: 1136383710346160284, guid: 5c368283ce899e74ca704ef8b7e502f9, type: 3}
 --- !u!4 &1346349518
 Transform:
   m_ObjectHideFlags: 0

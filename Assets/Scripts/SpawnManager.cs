@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
-    private Vector3 spawnPos = new Vector3(30, 2, 0);
+    [SerializeField] private List<GameObject> obstaclePrefabs;
+    private Vector3 spawnPos = new Vector3(30, 1, 0);
     private PlayerController playerController;
     private float startDelay = 2;
     private float repeatRate = 2;
@@ -27,7 +28,8 @@ public class SpawnManager : MonoBehaviour
         // Stop obstacle spawning on gameOver
         if(!playerController.gameOver)
         {
-            Instantiate(obstaclePrefab, spawnPos, gameObject.transform.rotation);
+            int index = Random.Range(0, obstaclePrefabs.Count);
+            Instantiate(obstaclePrefabs[index], spawnPos, gameObject.transform.rotation);
         }
     }
 }
