@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> obstaclePrefabs;
-    private Vector3 spawnPos = new Vector3(30, 1, 0);
+    //[SerializeField] private Vector3 spawnPos = new Vector3(40, 1.5f, 0);
+    [SerializeField] private GameObject spawnPos1; 
+    [SerializeField] private GameObject spawnPos2; 
     private PlayerController playerController;
     private float startDelay = 2;
     private float repeatRate = 2;
@@ -15,12 +17,6 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     // Spawn obstacale at spawnPos
     private void SpawnObstacle()
@@ -29,7 +25,10 @@ public class SpawnManager : MonoBehaviour
         if(!playerController.gameOver)
         {
             int index = Random.Range(0, obstaclePrefabs.Count);
-            Instantiate(obstaclePrefabs[index], spawnPos, gameObject.transform.rotation);
+            if(index < 3)
+                Instantiate(obstaclePrefabs[index], spawnPos1.transform.position, gameObject.transform.rotation);
+            else
+                Instantiate(obstaclePrefabs[index], spawnPos2.transform.position, gameObject.transform.rotation);
         }
     }
 }
