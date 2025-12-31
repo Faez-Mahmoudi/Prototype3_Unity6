@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip crashSound;
+    [SerializeField] private AudioClip bombSound;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem explosionParticle;
+    [SerializeField] private ParticleSystem fireworkParticle;
     [SerializeField] private ParticleSystem dirtParticle;
     
 
@@ -53,7 +55,8 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             jumpCount = 0;
-            dirtParticle.Play();
+            if(!gameOver)
+                dirtParticle.Play();
         }
         else if(collision.gameObject.CompareTag("Obstacle"))
         {
@@ -62,6 +65,18 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(crashSound, 1.0f);
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
+            gameOver = true;
+            Debug.Log("Game Over!");
+            
+        }
+        else if(collision.gameObject.CompareTag("Bomb"))
+        {
+            dirtParticle.Stop();
+            fireworkParticle.Play();
+            Destroy(collision.gameObject);  
+            playerAudio.PlayOneShot(bombSound, 1.0f);
+            playerAnim.SetBool("Death_b", true);
+            playerAnim.SetInteger("DeathType_int", 2);
             gameOver = true;
             Debug.Log("Game Over!");
             
