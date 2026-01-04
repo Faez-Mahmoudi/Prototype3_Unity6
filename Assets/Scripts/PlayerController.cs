@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip crashSound;
     [SerializeField] private AudioClip bombSound;
+    [SerializeField] private AudioClip moneySound;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem explosionParticle;
@@ -38,8 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
             jumpCount++;
-        }
-        
+        } 
     }
 
     private void Jump()
@@ -71,15 +71,19 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Bomb"))
         {
-            dirtParticle.Stop();
+            //dirtParticle.Stop();
             fireworkParticle.Play();
             Destroy(collision.gameObject);  
             playerAudio.PlayOneShot(bombSound, 1.0f);
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 2);
             gameOver = true;
-            Debug.Log("Game Over!");
-            
+            Debug.Log("Game Over!");   
+        }
+        else if(collision.gameObject.CompareTag("Money"))
+        {
+            Destroy(collision.gameObject);  
+            playerAudio.PlayOneShot(moneySound, 1.0f);   
         }
     }
 }
