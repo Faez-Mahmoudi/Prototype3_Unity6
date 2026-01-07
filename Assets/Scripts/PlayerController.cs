@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private UIHandler uiHandler;
     private Rigidbody playerRb;
     private Animator playerAnim;
     private AudioSource playerAudio;
 
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float gravityModifier;
-    public bool gameOver = false;
+    //public bool gameOver = false;
     private int jumpCount = 0;
 
     [Header("Audio Clips")]
@@ -29,13 +30,14 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
+        uiHandler = GameObject.Find("Canvas").GetComponent<UIHandler>();
         Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCount<2 && !gameOver)
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCount<2 && MainManager.Instance.isGameActive)
         {
             Jump();
             jumpCount++;
@@ -55,7 +57,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             jumpCount = 0;
-            if(!gameOver)
+            if(MainManager.Instance.isGameActive)
                 dirtParticle.Play();
         }
         else if(collision.gameObject.CompareTag("Obstacle"))
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(crashSound, 1.0f);
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
-            gameOver = true;
+            MainManager.Instance.isGameActive = false;
             Debug.Log("Game Over!");
             
         }
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(bombSound, 1.0f);
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 2);
-            gameOver = true;
+            MainManager.Instance.isGameActive = false;
             Debug.Log("Game Over!");   
         }
         else if(collision.gameObject.CompareTag("Money"))

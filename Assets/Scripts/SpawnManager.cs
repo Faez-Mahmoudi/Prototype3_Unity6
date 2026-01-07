@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
     private void SpawnObstacle()
     {
         // Stop obstacle spawning on gameOver
-        if(!playerController.gameOver)
+        if(MainManager.Instance.isGameActive)
         {
             int index = Random.Range(0, obstaclePrefabs.Count);
             if(index < 3)
@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour
     private void SpawnAir()
     {
         int index = Random.Range(0, airPrefabs.Count);
-        if(!playerController.gameOver)
+        if(MainManager.Instance.isGameActive)
             Instantiate(airPrefabs[index], spawnPos3.transform.position, gameObject.transform.rotation);
     }
 }
