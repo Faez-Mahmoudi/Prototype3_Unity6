@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private AudioSource playerAudio;
 
-    [SerializeField] private float jumpForce = 10.0f;
-    [SerializeField] private float gravityModifier;
+    [SerializeField] private float jumpForce = 600.0f;
+    //[SerializeField] private float gravityModifier = 2.0f;
     //public bool gameOver = false;
     private int jumpCount = 0;
 
@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         uiHandler = GameObject.Find("Canvas").GetComponent<UIHandler>();
-        Physics.gravity *= gravityModifier;
+        //Physics.gravity *= gravityModifier;
+        Physics.gravity = new Vector3(0, -19.62f, 0);        
     }
 
     // Update is called once per frame
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
             MainManager.Instance.isGameActive = false;
+            MainManager.Instance.SaveScore();
+
             Debug.Log("Game Over!");
             
         }
@@ -80,12 +83,14 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 2);
             MainManager.Instance.isGameActive = false;
+            MainManager.Instance.SaveScore();
             Debug.Log("Game Over!");   
         }
         else if(collision.gameObject.CompareTag("Money"))
         {
             Destroy(collision.gameObject);  
-            playerAudio.PlayOneShot(moneySound, 1.0f);   
+            playerAudio.PlayOneShot(moneySound, 1.0f);
+            uiHandler.AddDollar(1);   
         }
     }
 }

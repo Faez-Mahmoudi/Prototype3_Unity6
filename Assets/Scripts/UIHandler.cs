@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 # if UNITY_EDITOR
@@ -13,7 +14,7 @@ public class UIHandler : MonoBehaviour
     //[SerializeField] private GameObject powerupPrefab;
     public bool paused;
     private int score = 0;
-    private int dollars = 0;
+    //private int dollars = 0;
     //private int step = 0;
     //private int nextPowerupScore = 50;
 
@@ -21,6 +22,13 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI dollarText;
+    [SerializeField] private Button continueButton;
+
+    void Start()
+    {
+        MainManager.Instance.LoadScore();
+        dollarText.text = MainManager.Instance.dollars + "$";
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,13 +41,18 @@ public class UIHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             ChangePause();
 
+        if (MainManager.Instance.dollars >= 3)
+            continueButton.interactable = true;
+        else
+            continueButton.interactable = false;
+
         //scoreText.SetText("Your score: " + score);
     }
 
     public void AddDollar(int value)
     {
-        dollars += value;
-        dollarText.text = dollars + "$";
+        MainManager.Instance.dollars += value;
+        dollarText.text = MainManager.Instance.dollars + "$";
     }
 
     public void AddScore(int value)
@@ -109,8 +122,10 @@ public class UIHandler : MonoBehaviour
         # endif
     }
 
-    private void Continue()
+    public void Continue()
     {
-
+        MainManager.Instance.dollars -=3;
+        MainManager.Instance.SaveScore();
+        Restart();
     }
 }
