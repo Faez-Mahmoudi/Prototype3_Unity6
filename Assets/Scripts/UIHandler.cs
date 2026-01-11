@@ -14,7 +14,6 @@ public class UIHandler : MonoBehaviour
     //[SerializeField] private GameObject powerupPrefab;
     public bool paused;
     private int score = 0;
-    //private int dollars = 0;
     //private int step = 0;
     //private int nextPowerupScore = 50;
 
@@ -27,7 +26,9 @@ public class UIHandler : MonoBehaviour
     void Start()
     {
         MainManager.Instance.LoadScore();
+        paused = false;
         dollarText.text = MainManager.Instance.dollars + "$";
+        bestScoreText.text = PrintScore(MainManager.Instance.bestScore);
     }
 
     // Update is called once per frame
@@ -46,7 +47,8 @@ public class UIHandler : MonoBehaviour
         else
             continueButton.interactable = false;
 
-        //scoreText.SetText("Your score: " + score);
+        if(MainManager.Instance.isGameActive && !paused)
+            ScoreUpdate();
     }
 
     public void AddDollar(int value)
@@ -55,15 +57,15 @@ public class UIHandler : MonoBehaviour
         dollarText.text = MainManager.Instance.dollars + "$";
     }
 
-    public void AddScore(int value)
+    public void ScoreUpdate()
     {
-        score += value;
-        scoreText.SetText("Score = " + score);
+        score += 1;//(int) (0.1f * Math.Round(Time.deltaTime));
+        scoreText.SetText(PrintScore(score));
 
         if (score > MainManager.Instance.bestScore)
         {
             MainManager.Instance.bestScore = score;
-            bestScoreText.SetText("Best Score: " + MainManager.Instance.bestScore);
+            bestScoreText.SetText(PrintScore(MainManager.Instance.bestScore));
         }
 
         /*
@@ -84,6 +86,26 @@ public class UIHandler : MonoBehaviour
             //Debug.Log("live:" + nextLiveScore);
         }
         */
+    }
+
+    public string PrintScore(int score)
+    {
+        if(score / 10000000 >= 1)
+            return "0" + score;
+        else if(score / 1000000 >= 1 )
+            return "00" + score;
+        else if(score / 100000 >= 1 )
+            return "000" + score;
+        else if(score / 10000 >= 1 )
+            return "0000" + score;
+        else if(score / 1000 >= 1 )
+            return "00000" + score;
+        else if(score / 100 >= 1 )
+            return "000000" + score;
+        else if(score / 10 >= 1 )
+            return "0000000" + score;
+        else 
+            return "";
     }
 
     public void ChangePause()
