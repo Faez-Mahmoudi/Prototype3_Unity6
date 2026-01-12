@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float jumpForce = 600.0f;
     //[SerializeField] private float gravityModifier = 2.0f;
-    //public bool gameOver = false;
-    private int jumpCount = 0;
+    private int jumpCount;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip jumpSound;
@@ -32,7 +31,8 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         uiHandler = GameObject.Find("Canvas").GetComponent<UIHandler>();
         //Physics.gravity *= gravityModifier;
-        Physics.gravity = new Vector3(0, -19.62f, 0);        
+        Physics.gravity = new Vector3(0, -19.62f, 0);
+        jumpCount = 0;        
     }
 
     // Update is called once per frame
@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Bomb"))
         {
-            //dirtParticle.Stop();
             fireworkParticle.Play();
             Destroy(collision.gameObject);  
             playerAudio.PlayOneShot(bombSound, 1.0f);

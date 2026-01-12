@@ -5,8 +5,10 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager Instance{get; private set;}
     public int bestScore;
+    public int savedScore;
     public int dollars;
     public bool isGameActive;
+    public bool isContinueued;
 
     // Save bestScore
     [System.Serializable]
@@ -28,6 +30,7 @@ public class MainManager : MonoBehaviour
        Instance = this;
        DontDestroyOnLoad(gameObject); 
        isGameActive = true;
+       isContinueued = false;
        LoadScore();
     }
 

@@ -10,10 +10,8 @@ public class UIHandler : MonoBehaviour
 {
     [Header("Panel")]
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject pausePanel;
-    //[SerializeField] private GameObject powerupPrefab;
     public bool paused;
-    private int score = 0;
+    private int score;
     //private int step = 0;
     //private int nextPowerupScore = 50;
 
@@ -27,26 +25,37 @@ public class UIHandler : MonoBehaviour
     {
         MainManager.Instance.LoadScore();
         paused = false;
+
+        if(MainManager.Instance.isContinueued)
+            score += MainManager.Instance.savedScore;
+        else
+            score = 0;
+
         dollarText.text = MainManager.Instance.dollars + "$";
+        scoreText.SetText(PrintScore(score));
         bestScoreText.text = PrintScore(MainManager.Instance.bestScore);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // GameOver panel activate/deactiavate
         if (!MainManager.Instance.isGameActive)
             gameOverPanel.gameObject.SetActive(true);
         else
             gameOverPanel.gameObject.SetActive(false);
 
+        // ESC key press
         if (Input.GetKeyDown(KeyCode.Escape))
             ChangePause();
 
-        if (MainManager.Instance.dollars >= 3)
+        // Continue butten activated
+        if (MainManager.Instance.dollars >= 3 && !MainManager.Instance.isContinueued)
             continueButton.interactable = true;
         else
             continueButton.interactable = false;
 
+        // Score update
         if(MainManager.Instance.isGameActive && !paused)
             ScoreUpdate();
     }
@@ -115,13 +124,11 @@ public class UIHandler : MonoBehaviour
             if(!paused)
             {
                 paused = true;
-                pausePanel.gameObject.SetActive(true);
                 Time.timeScale = 0;
             }
             else
             {
                 paused = false;
-                pausePanel.gameObject.SetActive(false);
                 Time.timeScale = 1;
             }
         }
@@ -129,6 +136,9 @@ public class UIHandler : MonoBehaviour
 
     public void Restart()
     {
+        if(MainManager.Instance.isContinueued)
+            MainManager.Instance.isContinueued = !MainManager.Instance.isContinueued;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         MainManager.Instance.isGameActive = true;
     }
@@ -146,8 +156,10 @@ public class UIHandler : MonoBehaviour
 
     public void Continue()
     {
-        MainManager.Instance.dollars -=3;
-        MainManager.Instance.SaveScore();
-        Restart();
+        //MainManager.Instance.dollars -=1;
+        MainManager.Instance.savedScore = score;
+        MainManager.Instance.isContinueued = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MainManager.Instance.isGameActive = true;
     }
 }

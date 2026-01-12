@@ -15,7 +15,7 @@ public class MoveLeft : MonoBehaviour
         }
 
         // Destroy obstacle that exit bounds
-        if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
+        if(transform.position.x < leftBound && (gameObject.CompareTag("Obstacle") || gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money")))
         {
             Destroy(gameObject);
         }
