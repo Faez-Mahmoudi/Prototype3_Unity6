@@ -11,7 +11,7 @@ public class UIHandler : MonoBehaviour
     [Header("Panel")]
     [SerializeField] private GameObject gameOverPanel;
     public bool paused;
-    private int score;
+    public int score;
     //private int step = 0;
     //private int nextPowerupScore = 50;
 
@@ -76,25 +76,6 @@ public class UIHandler : MonoBehaviour
             MainManager.Instance.bestScore = score;
             bestScoreText.SetText(PrintScore(MainManager.Instance.bestScore));
         }
-
-        /*
-        while (score >= nextPowerupScore)
-        {
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 1, Random.Range(0, 10));
-            Instantiate(powerupPrefab, pos, powerupPrefab.transform.rotation);
-            nextPowerupScore += (100 + step * 25);
-            //Debug.Log("value:" + nextPowerupScore);
-            step++;            
-        }
-
-        while (score >= nextLiveScore)
-        {
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 1, Random.Range(0, 10));
-            Instantiate(livePearPrefab, pos, livePearPrefab.transform.rotation);
-            nextLiveScore += (100 + step * 30); 
-            //Debug.Log("live:" + nextLiveScore);
-        }
-        */
     }
 
     public string PrintScore(int score)

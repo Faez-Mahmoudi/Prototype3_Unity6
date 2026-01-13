@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    [SerializeField] private float speed = 30.0f;
-    private float leftBound = -15;
+    [SerializeField] private float speed = 20.0f;
+    private UIHandler uiHandler;
+    private float leftBound = -10;
+    private float nextScoreToAddSpeed = 1000;
+
+    private void Start()
+    {
+        uiHandler = GameObject.Find("Canvas").GetComponent<UIHandler>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -18,6 +25,17 @@ public class MoveLeft : MonoBehaviour
         if(transform.position.x < leftBound && (gameObject.CompareTag("Obstacle") || gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money")))
         {
             Destroy(gameObject);
+        }
+
+        // Increase speed each 1000 scores
+        if(uiHandler.score >= nextScoreToAddSpeed)
+        {
+            if(gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money"))
+                speed += 0.33f;
+            else
+                speed +=1;
+
+            nextScoreToAddSpeed += 1000;
         }
     }
 }

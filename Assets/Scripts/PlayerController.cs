@@ -64,26 +64,12 @@ public class PlayerController : MonoBehaviour
         else if(collision.gameObject.CompareTag("Obstacle"))
         {
             dirtParticle.Stop();
-            explosionParticle.Play();  
-            playerAudio.PlayOneShot(crashSound, 1.0f);
-            playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
-            MainManager.Instance.isGameActive = false;
-            MainManager.Instance.SaveScore();
-
-            Debug.Log("Game Over!");
-            
+            GameOver(1, explosionParticle, crashSound);   
         }
         else if(collision.gameObject.CompareTag("Bomb"))
         {
-            fireworkParticle.Play();
-            Destroy(collision.gameObject);  
-            playerAudio.PlayOneShot(bombSound, 1.0f);
-            playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 2);
-            MainManager.Instance.isGameActive = false;
-            MainManager.Instance.SaveScore();
-            Debug.Log("Game Over!");   
+            Destroy(collision.gameObject); 
+            GameOver(2, fireworkParticle, bombSound); 
         }
         else if(collision.gameObject.CompareTag("Money"))
         {
@@ -91,5 +77,15 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(moneySound, 1.0f);
             uiHandler.AddDollar(1);   
         }
+    }
+
+    private void GameOver(int deathType, ParticleSystem particle, AudioClip sound)
+    {
+        particle.Play();  
+        playerAudio.PlayOneShot(sound, 1.0f);
+        playerAnim.SetBool("Death_b", true);
+        playerAnim.SetInteger("DeathType_int", deathType);
+        MainManager.Instance.isGameActive = false;
+        MainManager.Instance.SaveScore();
     }
 }
