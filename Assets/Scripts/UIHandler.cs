@@ -12,8 +12,6 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     public bool paused;
     public int score;
-    //private int step = 0;
-    //private int nextPowerupScore = 50;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI scoreText;

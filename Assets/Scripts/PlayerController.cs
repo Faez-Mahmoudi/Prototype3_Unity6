@@ -69,13 +69,33 @@ public class PlayerController : MonoBehaviour
         else if(collision.gameObject.CompareTag("Bomb"))
         {
             Destroy(collision.gameObject); 
+            fireworkParticle.transform.position = gameObject.transform.position;
             GameOver(2, fireworkParticle, bombSound); 
         }
-        else if(collision.gameObject.CompareTag("Money"))
+        else if(collision.gameObject.CompareTag("GoodBomb"))
+        {
+            Destroy(collision.gameObject);
+            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+            if(obstacles != null)
+            {
+                foreach (var item in obstacles)
+                {
+                    playerAudio.PlayOneShot(bombSound, 1.0f);
+                    fireworkParticle.transform.position = item.transform.position;
+                    fireworkParticle.Play();
+                    Destroy(item);
+                }
+            } 
+        }
+        else if(collision.gameObject.CompareTag("Money") || collision.gameObject.CompareTag("ExtraMoney"))
         {
             Destroy(collision.gameObject);  
             playerAudio.PlayOneShot(moneySound, 1.0f);
-            uiHandler.AddDollar(1);   
+
+            if(collision.gameObject.CompareTag("ExtraMoney"))
+                uiHandler.AddDollar(3);
+            else
+                uiHandler.AddDollar(1);   
         }
     }
 

@@ -2,11 +2,19 @@ using UnityEngine;
 
 public class SpinObject : MonoBehaviour
 {
-    public float spinSpeed;
+    [SerializeField] private float spinSpeed;
+    [SerializeField] private int caseOfSpin = 1;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
+        if(caseOfSpin == 1)
+        {
+            transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
+        }
+        else if(caseOfSpin == 2)
+        {
+            transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
+        }
     }
 }

@@ -5,6 +5,7 @@ public class MoveLeft : MonoBehaviour
     [SerializeField] private float speed = 20.0f;
     private UIHandler uiHandler;
     private float leftBound = -10;
+    private float rightBound = 55;
     private float nextScoreToAddSpeed = 1000;
 
     private void Start()
@@ -22,7 +23,11 @@ public class MoveLeft : MonoBehaviour
         }
 
         // Destroy obstacle that exit bounds
-        if(transform.position.x < leftBound && (gameObject.CompareTag("Obstacle") || gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money")))
+        if(transform.position.x < leftBound && !(gameObject.CompareTag("BackGround")))
+        {
+            Destroy(gameObject);
+        }
+        if(transform.position.x > rightBound && !(gameObject.CompareTag("BackGround")))
         {
             Destroy(gameObject);
         }
