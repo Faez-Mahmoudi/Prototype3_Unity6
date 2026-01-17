@@ -5,7 +5,7 @@ public class MoveLeft : MonoBehaviour
     [SerializeField] private float speed = 20.0f;
     private UIHandler uiHandler;
     private float leftBound = -10;
-    private float rightBound = 55;
+    private float rightBound = 42;
     private float nextScoreToAddSpeed = 1000;
 
     private void Start()
@@ -35,7 +35,8 @@ public class MoveLeft : MonoBehaviour
         // Increase speed each 1000 scores
         if(uiHandler.score >= nextScoreToAddSpeed)
         {
-            if(gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money"))
+            // need to be optimized
+            if(gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money") || gameObject.CompareTag("GoodBomb"))
                 speed += 0.33f;
             else
                 speed +=1;

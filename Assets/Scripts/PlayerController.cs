@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private AudioSource playerAudio;
 
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject tip;
     [SerializeField] private float jumpForce = 600.0f;
     //[SerializeField] private float gravityModifier = 2.0f;
     private int jumpCount;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip crashSound;
     [SerializeField] private AudioClip bombSound;
     [SerializeField] private AudioClip moneySound;
+    [SerializeField] private AudioClip fireSound;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem explosionParticle;
@@ -42,7 +45,14 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
             jumpCount++;
-        } 
+        }
+
+        if(Input.GetKeyDown(KeyCode.F) && MainManager.Instance.bombAmount > 0 && MainManager.Instance.isGameActive)
+        {
+            Instantiate(projectilePrefab, tip.transform.position , projectilePrefab.transform.rotation);
+            playerAudio.PlayOneShot(fireSound, 1.0f);
+            MainManager.Instance.bombAmount--;
+        }  
     }
 
     private void Jump()
@@ -80,12 +90,17 @@ public class PlayerController : MonoBehaviour
             {
                 foreach (var item in obstacles)
                 {
-                    playerAudio.PlayOneShot(bombSound, 1.0f);
-                    fireworkParticle.transform.position = item.transform.position;
-                    fireworkParticle.Play();
+                    ExplosionEffect(item.transform.position);
                     Destroy(item);
                 }
             } 
+        }
+        else if(collision.gameObject.CompareTag("FireBomb"))
+        {
+            Destroy(collision.gameObject);  
+            playerAudio.PlayOneShot(moneySound, 1.0f);
+
+            MainManager.Instance.bombAmount += 3;   
         }
         else if(collision.gameObject.CompareTag("Money") || collision.gameObject.CompareTag("ExtraMoney"))
         {
@@ -93,7 +108,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(moneySound, 1.0f);
 
             if(collision.gameObject.CompareTag("ExtraMoney"))
-                uiHandler.AddDollar(3);
+                uiHandler.AddDollar(-1);
             else
                 uiHandler.AddDollar(1);   
         }
@@ -107,5 +122,12 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetInteger("DeathType_int", deathType);
         MainManager.Instance.isGameActive = false;
         MainManager.Instance.SaveScore();
+    }
+
+    public void ExplosionEffect(Vector3 explosionPos)
+    {
+        playerAudio.PlayOneShot(bombSound, 1.0f);
+        fireworkParticle.transform.position = explosionPos;
+        fireworkParticle.Play();
     }
 }

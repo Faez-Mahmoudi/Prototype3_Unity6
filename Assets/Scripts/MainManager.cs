@@ -7,6 +7,7 @@ public class MainManager : MonoBehaviour
     public int bestScore;
     public int savedScore;
     public int dollars;
+    public int bombAmount;
     public bool isGameActive;
     public bool isContinueued;
 
@@ -16,6 +17,7 @@ public class MainManager : MonoBehaviour
     {
         public int b_Score;
         public int m_dollars;
+        public int b_amount;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +41,7 @@ public class MainManager : MonoBehaviour
         SaveData data = new SaveData();
         data.b_Score = bestScore;
         data.m_dollars = dollars;
+        data.b_amount = bombAmount;
 
         string json  = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
@@ -54,11 +57,13 @@ public class MainManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             bestScore = data.b_Score;
             dollars = data.m_dollars;
+            bombAmount = data.b_amount;
         }
         else
         {
             bestScore = 0;
             dollars = 0;
+            bombAmount = 0;
         }
     }
 }

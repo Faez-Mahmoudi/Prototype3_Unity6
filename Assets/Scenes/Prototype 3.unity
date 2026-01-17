@@ -299,6 +299,7 @@ MonoBehaviour:
   bestScore: 0
   savedScore: 0
   dollars: 0
+  bombAmount: 0
   isGameActive: 0
   isContinueued: 0
 --- !u!1001 &19010301
@@ -442,6 +443,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400046, guid: 814f4326a50812947b2469896d89a215, type: 3}
       insertIndex: -1
       addedObject: {fileID: 605724969}
+    - targetCorrespondingSourceObject: {fileID: 400046, guid: 814f4326a50812947b2469896d89a215, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 916776419}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100046, guid: 814f4326a50812947b2469896d89a215, type: 3}
       insertIndex: -1
@@ -1948,8 +1952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85af3abc5dd48cd43a74a27383146001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombSound: {fileID: 0}
-  explosionRubbleParticle: {fileID: 0}
 --- !u!1001 &605724968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2090,11 +2092,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f01731a53155f841bff9adb0f87708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 1793120405475377934, guid: a604bb42aff37de4dbfea1c9ddc17aa4, type: 3}
+  tip: {fileID: 916776418}
   jumpForce: 600
   jumpSound: {fileID: 8300000, guid: 113ee460fadc340e4957a7404a9fbb27, type: 3}
   crashSound: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
   bombSound: {fileID: 8300000, guid: 4bcde6de2166e41e284ec46d8a01fb90, type: 3}
   moneySound: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
+  fireSound: {fileID: 8300000, guid: 0f7d0b7c3397f4dac91f20e8a77d2d57, type: 3}
   explosionParticle: {fileID: 469783569}
   fireworkParticle: {fileID: 605724970}
   dirtParticle: {fileID: 1675436026}
@@ -2873,6 +2878,37 @@ MonoBehaviour:
   bestScoreText: {fileID: 1644616614}
   dollarText: {fileID: 157677563}
   continueButton: {fileID: 1860100924}
+--- !u!1 &916776418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 916776419}
+  m_Layer: 0
+  m_Name: Tip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &916776419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916776418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11, y: 1.5, z: 2.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 621579620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &918530454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,63 +3076,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048256271}
   m_CullTransparentMesh: 1
---- !u!1001 &1070480516
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2556068574396669415, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_Name
-      value: BombProjectile (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.654
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4644128871177958632, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1376d9826a0bddc40a499ffeaf6b542a, type: 3}
 --- !u!1 &1219537909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,6 +3527,7 @@ MonoBehaviour:
   - {fileID: 9060078144296146126, guid: ed02b8d65bede604f973d166c0733327, type: 3}
   - {fileID: 2316233253029667542, guid: 074f3b6656463e346ad19bc7348fbc18, type: 3}
   - {fileID: 3981487161104831004, guid: ce5aad4aed3035242a2f9e376ad7d498, type: 3}
+  - {fileID: 1793120405475377934, guid: a604bb42aff37de4dbfea1c9ddc17aa4, type: 3}
   spawnPos1: {fileID: 918530454}
   spawnPos2: {fileID: 1488993509}
   spawnPos3: {fileID: 439339780}
@@ -5083,4 +5063,3 @@ SceneRoots:
   - {fileID: 859032496}
   - {fileID: 7811444}
   - {fileID: 803373473}
-  - {fileID: 1070480516}

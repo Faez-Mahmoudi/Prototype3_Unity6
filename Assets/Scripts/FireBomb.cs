@@ -2,21 +2,18 @@ using UnityEngine;
 
 public class FireBomb : MonoBehaviour
 {
-    private AudioSource bombAudio;
-    [SerializeField] private AudioClip bombSound;
-    [SerializeField] private ParticleSystem explosionRubbleParticle;
+    private PlayerController playerController;
 
     void Start()
     {
-        bombAudio = GetComponent<AudioSource>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Obstacle"))
         {
-            explosionRubbleParticle.Play();
-            bombAudio.PlayOneShot(bombSound, 1.0f);
+            playerController.ExplosionEffect(collision.gameObject.transform.position);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
