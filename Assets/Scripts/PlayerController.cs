@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(projectilePrefab, tip.transform.position , projectilePrefab.transform.rotation);
             playerAudio.PlayOneShot(fireSound, 1.0f);
-            MainManager.Instance.bombAmount--;
+            uiHandler.AddBomb(-1);
         }  
     }
 
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);  
             playerAudio.PlayOneShot(moneySound, 1.0f);
 
-            MainManager.Instance.bombAmount += 3;   
+            uiHandler.AddBomb(1);
         }
         else if(collision.gameObject.CompareTag("Money") || collision.gameObject.CompareTag("ExtraMoney"))
         {

@@ -35,11 +35,12 @@ public class MoveLeft : MonoBehaviour
         // Increase speed each 1000 scores
         if(uiHandler.score >= nextScoreToAddSpeed)
         {
-            // need to be optimized
-            if(gameObject.CompareTag("Bomb") || gameObject.CompareTag("Money") || gameObject.CompareTag("GoodBomb"))
-                speed += 0.33f;
+            if(gameObject.CompareTag("Obstacle") || gameObject.CompareTag("BackGround"))
+                speed ++;
+            else if(gameObject.CompareTag("Projectile"))
+                speed = -5;
             else
-                speed +=1;
+                speed += 0.33f;
 
             nextScoreToAddSpeed += 1000;
         }

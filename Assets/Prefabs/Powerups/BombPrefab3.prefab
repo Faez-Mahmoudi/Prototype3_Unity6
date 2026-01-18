@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2882779377347629960}
   m_Layer: 0
   m_Name: BombPrefab3
-  m_TagString: Untagged
+  m_TagString: FireBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -100
+  caseOfSpin: 1
 --- !u!4 &8428121891736373346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6143026866120157091, guid: 875ce4366073f394e9401960de3dc2ca, type: 3}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6087100462157829101}
   m_Layer: 0
   m_Name: BombProjectile2
-  m_TagString: Bomb
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,8 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85af3abc5dd48cd43a74a27383146001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombSound: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
-  explosionRubbleParticle: {fileID: 3546657167388705673}
 --- !u!1001 &3546657167406993293
 PrefabInstance:
   m_ObjectHideFlags: 0

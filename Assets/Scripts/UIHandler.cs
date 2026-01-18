@@ -17,6 +17,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI dollarText;
+    [SerializeField] private TextMeshProUGUI bombText;
     [SerializeField] private Button continueButton;
 
     void Start()
@@ -30,6 +31,7 @@ public class UIHandler : MonoBehaviour
             score = 0;
 
         dollarText.text = MainManager.Instance.dollars + "$";
+        bombText.text = MainManager.Instance.bombAmount + "B";
         scoreText.SetText(PrintScore(score));
         bestScoreText.text = PrintScore(MainManager.Instance.bestScore);
     }
@@ -48,7 +50,7 @@ public class UIHandler : MonoBehaviour
             ChangePause();
 
         // Continue butten activated
-        if (MainManager.Instance.dollars >= 3 && !MainManager.Instance.isContinueued)
+        if (MainManager.Instance.dollars >= 10 && !MainManager.Instance.isContinueued)
             continueButton.interactable = true;
         else
             continueButton.interactable = false;
@@ -62,6 +64,12 @@ public class UIHandler : MonoBehaviour
     {
         MainManager.Instance.dollars += value;
         dollarText.text = MainManager.Instance.dollars + "$";
+    }
+
+    public void AddBomb(int value)
+    {
+        MainManager.Instance.bombAmount += value;
+        bombText.text = MainManager.Instance.bombAmount + "B";
     }
 
     public void ScoreUpdate()
@@ -135,9 +143,10 @@ public class UIHandler : MonoBehaviour
 
     public void Continue()
     {
-        //MainManager.Instance.dollars -=1;
+        AddDollar(-10);
         MainManager.Instance.savedScore = score;
         MainManager.Instance.isContinueued = true;
+        MainManager.Instance.SaveScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         MainManager.Instance.isGameActive = true;
     }

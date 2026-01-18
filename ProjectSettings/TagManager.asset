@@ -12,6 +12,7 @@ TagManager:
   - ExtraMoney
   - BackGround
   - FireBomb
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4375952730329438449}
   m_Layer: 0
   m_Name: MoneyPrefab
-  m_TagString: Untagged
+  m_TagString: Money
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -100
+  caseOfSpin: 1
 --- !u!4 &8787012690575204103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3409697279465044387, guid: c576680220fda23429f8b30735c7e7ac, type: 3}
