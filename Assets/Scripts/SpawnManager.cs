@@ -8,7 +8,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject spawnPos1; 
     [SerializeField] private GameObject spawnPos2; 
     [SerializeField] private GameObject spawnPos3; 
-    private PlayerController playerController;
     private float startDelay = 2;
     private float repeatRate = 2.5f;
     private float airStartDelay = 3;
@@ -19,7 +18,6 @@ public class SpawnManager : MonoBehaviour
     {
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
         InvokeRepeating("SpawnAir", airStartDelay, airRepeatRate);
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     
     // Spawn obstacale at spawnPos

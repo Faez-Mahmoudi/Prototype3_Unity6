@@ -41,17 +41,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCount<2 && MainManager.Instance.isGameActive)
+        if(MainManager.Instance.isGameActive)
         {
-            Jump();
-            jumpCount++;
-        }
+            if(Input.GetKeyDown(KeyCode.Space) && jumpCount<2)
+            {
+                Jump();
+                jumpCount++;
+            }
 
-        if(Input.GetKeyDown(KeyCode.F) && MainManager.Instance.bombAmount > 0 && MainManager.Instance.isGameActive)
-        {
-            Instantiate(projectilePrefab, tip.transform.position , projectilePrefab.transform.rotation);
-            playerAudio.PlayOneShot(fireSound, 1.0f);
-            uiHandler.AddBomb(-1);
+            if(Input.GetKeyDown(KeyCode.F) && MainManager.Instance.bombAmount > 0)
+            {
+                Instantiate(projectilePrefab, tip.transform.position , projectilePrefab.transform.rotation);
+                playerAudio.PlayOneShot(fireSound, 1.0f);
+                uiHandler.AddBomb(-1);
+            }
         }  
     }
 

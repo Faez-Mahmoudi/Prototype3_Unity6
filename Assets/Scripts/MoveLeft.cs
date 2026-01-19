@@ -6,7 +6,7 @@ public class MoveLeft : MonoBehaviour
     private UIHandler uiHandler;
     private float leftBound = -10;
     private float rightBound = 42;
-    private float nextScoreToAddSpeed = 1000;
+    private float nextScoreToAddSpeed = 333;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class MoveLeft : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Increase speed each 1000 scores
+        // Increase speed each 333 scores
         if(uiHandler.score >= nextScoreToAddSpeed)
         {
             if(gameObject.CompareTag("Obstacle") || gameObject.CompareTag("BackGround"))
@@ -42,7 +42,7 @@ public class MoveLeft : MonoBehaviour
             else
                 speed += 0.33f;
 
-            nextScoreToAddSpeed += 1000;
+            nextScoreToAddSpeed += 333;
         }
     }
 }

@@ -11,7 +11,7 @@ public class MainManager : MonoBehaviour
     public bool isGameActive;
     public bool isContinueued;
 
-    // Save bestScore
+    // Save our data
     [System.Serializable]
     class SaveData
     {
@@ -20,7 +20,6 @@ public class MainManager : MonoBehaviour
         public int b_amount;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
        if (Instance != null)

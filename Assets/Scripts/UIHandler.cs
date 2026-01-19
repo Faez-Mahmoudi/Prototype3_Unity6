@@ -10,6 +10,8 @@ public class UIHandler : MonoBehaviour
 {
     [Header("Panel")]
     [SerializeField] private GameObject gameOverPanel;
+
+    private float nextTimeToAddScore = 0;
     public bool paused;
     public int score;
 
@@ -24,6 +26,7 @@ public class UIHandler : MonoBehaviour
     {
         MainManager.Instance.LoadScore();
         paused = false;
+        gameOverPanel.gameObject.SetActive(false);
 
         if(MainManager.Instance.isContinueued)
             score += MainManager.Instance.savedScore;
@@ -32,32 +35,27 @@ public class UIHandler : MonoBehaviour
 
         dollarText.text = MainManager.Instance.dollars + "$";
         bombText.text = MainManager.Instance.bombAmount + "B";
-        scoreText.SetText(PrintScore(score));
+        //scoreText.text = PrintScore(score);
         bestScoreText.text = PrintScore(MainManager.Instance.bestScore);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // GameOver panel activate/deactiavate
-        if (!MainManager.Instance.isGameActive)
-            gameOverPanel.gameObject.SetActive(true);
-        else
-            gameOverPanel.gameObject.SetActive(false);
+        if(MainManager.Instance.isGameActive)
+        {
+            if(Time.time >= nextTimeToAddScore && !paused)
+            {
+                ScoreUpdate();
+                nextTimeToAddScore = Time.time + 0.03f;
+            }
+        }
+        else    
+            GameIsOverActions();            
 
-        // ESC key press
+        // ESC key pressed
         if (Input.GetKeyDown(KeyCode.Escape))
             ChangePause();
-
-        // Continue butten activated
-        if (MainManager.Instance.dollars >= 10 && !MainManager.Instance.isContinueued)
-            continueButton.interactable = true;
-        else
-            continueButton.interactable = false;
-
-        // Score update
-        if(MainManager.Instance.isGameActive && !paused)
-            ScoreUpdate();
     }
 
     public void AddDollar(int value)
@@ -74,33 +72,29 @@ public class UIHandler : MonoBehaviour
 
     public void ScoreUpdate()
     {
-        score += 1;//(int) (0.1f * Math.Round(Time.deltaTime));
+        score += 1;
         scoreText.SetText(PrintScore(score));
-
-        if (score > MainManager.Instance.bestScore)
-        {
-            MainManager.Instance.bestScore = score;
-            bestScoreText.SetText(PrintScore(MainManager.Instance.bestScore));
-        }
     }
 
     public string PrintScore(int score)
     {
         if(score / 10000000 >= 1)
-            return "0" + score;
+            return score.ToString();
         else if(score / 1000000 >= 1 )
-            return "00" + score;
+            return "0" + score;
         else if(score / 100000 >= 1 )
-            return "000" + score;
+            return "00" + score;
         else if(score / 10000 >= 1 )
-            return "0000" + score;
+            return "000" + score;
         else if(score / 1000 >= 1 )
-            return "00000" + score;
+            return "0000" + score;
         else if(score / 100 >= 1 )
-            return "000000" + score;
+            return "00000" + score;
         else if(score / 10 >= 1 )
+            return "000000" + score;
+        else if(score >=1)
             return "0000000" + score;
-        else 
+        else
             return "";
     }
 
@@ -119,6 +113,22 @@ public class UIHandler : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
+    }
+
+    private void GameIsOverActions()
+    {
+        gameOverPanel.gameObject.SetActive(true);
+        if (score > MainManager.Instance.bestScore)
+        {
+            MainManager.Instance.bestScore = score;
+            bestScoreText.SetText(PrintScore(MainManager.Instance.bestScore));
+        }
+
+        // Continue butten activated
+        if (MainManager.Instance.dollars >= 10 && !MainManager.Instance.isContinueued)
+            continueButton.interactable = true;
+        else
+            continueButton.interactable = false;
     }
 
     public void Restart()
