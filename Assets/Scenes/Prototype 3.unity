@@ -1840,7 +1840,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 38
+  field of view: 48
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3735,7 +3735,7 @@ MonoBehaviour:
   - {fileID: 3920010048942922270, guid: bbf4c7831e3432747b131e45df37be58, type: 3}
   - {fileID: 9060078144296146126, guid: ed02b8d65bede604f973d166c0733327, type: 3}
   - {fileID: 2316233253029667542, guid: 074f3b6656463e346ad19bc7348fbc18, type: 3}
-  - {fileID: 3981487161104831004, guid: ce5aad4aed3035242a2f9e376ad7d498, type: 3}
+  - {fileID: 708279170153800069, guid: 89719acb959e4c041a506a03e8839a63, type: 3}
   - {fileID: 5187546062696705862, guid: 6964715425dbef243926ba5b9a424a9e, type: 3}
   - {fileID: 1409836166135462870, guid: 5be6af4a9b67507408b301a489e14556, type: 3}
   spawnPos1: {fileID: 918530454}
@@ -4980,7 +4980,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 1, z: 1}
+  m_LocalScale: {x: 6, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
